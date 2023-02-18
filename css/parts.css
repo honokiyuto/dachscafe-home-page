@@ -25,26 +25,7 @@
 }
 
 /* Loading アイコンの大きさ設定　*/
-#splash_logo svg{
-    width:250px;
-}
 
-/*=============== SVGアニメーション内の指定 =================*/
-
-/*アニメーション前の指定*/
-#mask path {
-		fill-opacity: 0;/*最初は透過0で見えない状態*/
-		transition: fill-opacity .5s;/*カラーがつく際のアニメーション0.5秒で変化*/
-		fill: none;/*塗りがない状態*/
-		stroke: #fff;/*線の色*/
-	}
-
-/*アニメーション後に.doneというクラス名がで付与された時の指定*/
-#mask.done path{
-	  fill: #fff;/*塗りの色*/
-	  fill-opacity: 1;/*透過1で見える状態*/
-	  stroke: none;/*線の色なし*/
-	}
 
 /*==================================================
 　機能編 4-2-1　背景色が伸びる（上から下）
@@ -259,6 +240,7 @@ body.appear #container{
 
 .TextTyping span {
 	display: none;
+	z-index: 3;
 }
 
 .TextTyping::after {
@@ -266,6 +248,7 @@ body.appear #container{
 	animation: typinganime .8s ease infinite;
     font-weight: normal;
     padding: 0 0 0 10px;
+	z-index: 3;
 }
 
 @keyframes typinganime{
@@ -273,18 +256,6 @@ body.appear #container{
 	to{opacity:1}
 }
 
-
-/*===========================================================*/
-/*印象編　5-5　雪が降る、5-6　桜が散る*/
-/*===========================================================*/
-
-.particle{ 
-	position:absolute;/*描画固定*/
-    left:0;
-    top:0;
-	width: 100%;
-	height: 100vh;
-}
 
 /*==================================================
 /*印象編　6-3　スクロールすると画面分割した左右がそれぞれ動く*/
@@ -302,6 +273,11 @@ body.appear #container{
 }
 
 /*右にある丸ナビゲーション色*/
+
+#multiscroll-nav{
+	z-index: 6!important;
+}
+
 
 #multiscroll-nav span{
 	background:transparent!important;
@@ -457,3 +433,238 @@ body.appear #container{
 	
 }
 
+/*===========================================================*/
+/* 印象編　8 テキストの動き　/
+/*===========================================================*/
+
+/*========= 8-2 テキストが流れるように出現（左から右） ===============*/
+
+/*全共通*/
+
+.slide-in {
+	overflow: hidden;
+    display: inline-block;
+    padding: 0 10px;/*英語がはみ出るので見えるように余白追記*/
+}
+
+.slide-in_inner {
+	display: inline-block;
+
+}
+
+/*左右のアニメーション*/
+.leftAnime,
+.rightAnime{
+    opacity: 0;/*事前に透過0にして消しておく*/
+}
+
+.slideAnimeLeftRight {
+	animation-name: slideText-100;
+	animation-duration:0.8s;
+	animation-fill-mode:forwards;
+    opacity: 0;
+}
+
+@keyframes slideText-100 {
+  from {
+	transform: translateX(-100%); /*要素を左の枠外に移動*/
+        opacity: 0;
+  }
+
+  to {
+	transform: translateX(0);/*要素を元の位置に移動*/
+    opacity: 1;
+  }
+}
+
+.slideAnimeRightLeft {
+	animation-name: slideText100;
+	animation-duration:0.8s;
+	animation-fill-mode:forwards;
+    opacity: 0;
+}
+
+
+@keyframes slideText100 {
+  from {
+	transform: translateX(100%);/*要素を右の枠外に移動*/
+    opacity: 0;
+  }
+
+  to {
+	transform: translateX(0);/*要素を元の位置に移動*/
+    opacity: 1;
+  }
+}
+
+/*===========================================================*/
+/*機能編  5-1-21 クリックしたら円形背景が拡大（右下から）*/
+/*===========================================================*/
+/*========= ナビゲーションのためのCSS ===============*/
+@media screen and (max-width:1300px) {
+
+	/*アクティブになったエリア*/
+	#g-nav.panelactive{
+		/*position:fixed;にし、z-indexの数値を大きくして前面へ*/
+		position:fixed;
+		z-index: 999;
+		top: 0;
+		width:100%;
+		height: 100vh;
+	}
+	
+	/*丸の拡大*/
+	.circle-bg{
+		position: fixed;
+		z-index:10;
+		/*丸の形*/
+		width: 100px;
+		height: 100px;
+		border-radius: 50%;
+		background: #504237;
+		/*丸のスタート位置と形状*/
+		transform: scale(0);/*scaleをはじめは0に*/
+		right:-50px;
+		bottom:-50px;
+		transition: all .6s;/*0.6秒かけてアニメーション*/
+	}
+	
+	.circle-bg.circleactive{
+		transform: scale(50);/*クラスが付与されたらscaleを拡大*/
+	}
+	
+	/*ナビゲーション*/
+	#g-nav ul {
+		opacity: 0;/*はじめは透過0*/
+		/*ナビゲーション天地中央揃え※レイアウトによって調整してください。不必要なら削除*/
+		position: absolute;
+		z-index: 999;
+		top:50%;
+		left:50%;
+		transform: translate(-50%,-50%);
+	}
+	
+	/*背景が出現後にナビゲーションを表示*/
+	#g-nav.panelactive ul {
+		opacity:1;
+	}
+	
+	/* 背景が出現後にナビゲーション li を表示※レイアウトによって調整してください。不必要なら削除*/
+	#g-nav.panelactive ul li{
+	animation-name:gnaviAnime;
+	animation-duration:1s;
+	animation-delay:.2s;/*0.2 秒遅らせて出現*/
+	animation-fill-mode:forwards;
+	opacity:0;
+	}	
+}
+	
+@keyframes gnaviAnime{
+	0% {
+	opacity: 0;
+	}
+	100% {
+	opacity: 1;
+	}
+}
+
+
+/*===========================================================*/
+/*機能編  5-2-1　3本線が×に*/
+/*===========================================================*/
+
+
+.openbtn{
+    display: none;
+}
+
+
+@media screen and (max-width:1300px) {
+
+	.openbtn{
+		display: block;
+		position:fixed;
+		top:0;
+		left:0;
+		z-index: 9999;/*ボタンを最前面に*/
+		cursor: pointer;
+		width: 94px;
+		height:94px;
+	}
+		
+	/*×に変化*/	
+	.openbtn span{
+		display: inline-block;
+		transition: all .4s;
+		position: absolute;
+		left: 23px;
+		height: 3px;
+		border-radius: 2px;
+		background-color: #fff;
+		width: 45%;
+	}
+
+	.openbtn span:nth-of-type(1) {
+		top:33px;	
+	}
+
+	.openbtn span:nth-of-type(2) {
+		top:46px;
+	}
+
+	.openbtn span:nth-of-type(3) {
+		top:58px;
+	}
+
+	.openbtn.active span:nth-of-type(1) {
+		top: 41px;
+		left: 28px;
+		transform: translateY(6px) rotate(-45deg);
+		width: 30%;
+	}
+
+	.openbtn.active span:nth-of-type(2) {
+		opacity: 0;
+	}
+
+	.openbtn.active span:nth-of-type(3){
+		top: 52px;
+		left: 28px;
+		transform: translateY(-6px) rotate(45deg);
+		width: 30%;
+	}
+}
+
+@media screen and (max-width:768px) {
+	.openbtn{
+		width:70px;
+		height: 70px;
+	}
+	/* ×に変化 */	
+	.openbtn span{
+		left: 17px;
+	}
+
+	.openbtn span:nth-of-type(1) {
+		top:20px;	
+	}
+
+	.openbtn span:nth-of-type(2) {
+		top:33px;
+	}
+
+	.openbtn span:nth-of-type(3) {
+		top:45px;
+	}
+
+	.openbtn.active span:nth-of-type(1) {
+		top: 28px;
+		left: 22px;
+	}
+
+	.openbtn.active span:nth-of-type(3){
+		top: 40px;
+		left: 22px;
+	}
+    
+}
