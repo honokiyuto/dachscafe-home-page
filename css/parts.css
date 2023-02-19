@@ -310,6 +310,21 @@ body.appear #header{
 	padding:20px;
 }
 
+/*hoverした際の形状*/
+#menu li a:hover:before{
+	color: #777;
+}
+
+@media screen and (max-width:1300px) {
+	#menu li {
+		display:block;
+	}
+	
+	#menu li a{
+		display:block;
+	}
+}
+
 /*画像設定*/
 /*＝＝＝＝＝＝＝＝＝＝＝550-1300pxの見え方＝＝＝＝＝＝＝＝＝＝＝＝＝*/
 #left-sign-img {
