@@ -34,8 +34,8 @@ function TextTypingAnime() {
 /*===================================*/
 
 $('#wrapper').multiscroll({
-	sectionsColor: ['#0f7fa7', '#504237', '#504237','#504237', '#504237', '#504237'],//セクションごとの背景色設定
-	anchors: ['area1', 'area2', 'area3','area4','area5','area6'],//セクションとリンクするページ内アンカーになる名前
+	sectionsColor: ['#222222', '#222222', '#222222','#222222', '#222222', '#222222'],//セクションごとの背景色設定
+	anchors: ['area1', 'area2', 'area3', 'area4', 'area5', 'area6'],//セクションとリンクするページ内アンカーになる名前
 	menu: '#menu',//上部ナビゲーションのメニュー設定
 	navigation: true,//右のナビゲーション出現、非表示は false
 	//navigationTooltips:['Area1', 'Area2', 'Area3','Area4','Area5'],//右のナビゲーション現在地時に入るテキスト
@@ -71,25 +71,25 @@ $(window).on('load',function(){
 
     $("#splash").delay(1500).fadeOut('slow',function(){//ローディングエリア（splashエリア）を1.5秒でフェードアウトする記述
     
-    $('body').addClass('appear');//フェードアウト後bodyにappearクラス付与 
-	
-    //印象編 8-10テキストがタイピング風に出現
-	var element = $(".TextTyping");
-	element.each(function () {
-		var text = $(this).html();
-		var textbox = "";
-		text.split('').forEach(function (t) {
-			if (t !== " ") {
-				textbox += '<span>' + t + '</span>';
-			} else {
-				textbox += t;
-			}
+		$('body').addClass('appear');//フェードアウト後bodyにappearクラス付与 
+		
+		//印象編 8-10テキストがタイピング風に出現
+		var element = $(".TextTyping");
+		element.each(function () {
+			var text = $(this).html();
+			var textbox = "";
+			text.split('').forEach(function (t) {
+				if (t !== " ") {
+					textbox += '<span>' + t + '</span>';
+				} else {
+					textbox += t;
+				}
+			});
+			$(this).html(textbox);
 		});
-		$(this).html(textbox);
-	});
-	TextTypingAnime();/* アニメーション用の関数を呼ぶ*/
+		TextTypingAnime();/* アニメーション用の関数を呼ぶ*/
 
-}); //=====ここまでローディングエリア（splashエリア）を0.8秒でフェードアウトした後に動かしたいJSをまとめる
+	}); //=====ここまでローディングエリア（splashエリア）を0.8秒でフェードアウトした後に動かしたいJSをまとめる
     
 });// ここまでページが読み込まれたらすぐに動かしたい場合の記述
 

@@ -11,7 +11,7 @@
 	width: 100%;
 	height: 100%;
 	z-index: 9999;
-	background:#504237;
+	background:#222222;
 	text-align:center;
 	color:#fff;
 }
@@ -45,7 +45,7 @@ body.appear .splashbg{
     top: 0;
 	left: 0;
     transform: scaleY(0);
-    background-color:#504237;/*伸びる背景色の設定*/
+    background-color:#222222;/*伸びる背景色の設定*/
 	animation-name:PageAnime;
 	animation-duration:1.2s;
 	animation-timing-function:ease-in-out;
@@ -86,6 +86,22 @@ body.appear #container{
 	opacity: 0;
 }
 
+/*画面遷移の後現れるコンテンツ設定*/
+#header{
+    position: absolute;
+    z-index: 11;
+	opacity: 0;/*はじめは透過0に*/
+}
+
+/*bodyにappearクラスがついたら出現*/
+body.appear #header{
+	animation-name:PageAnimeAppear;
+	animation-duration:1s;
+	animation-delay: 0.8s;
+	animation-fill-mode:forwards;
+	opacity: 0;
+}
+
 @keyframes PageAnimeAppear{
 	0% {
 	opacity: 0;
@@ -93,35 +109,6 @@ body.appear #container{
 	100% {
 	opacity: 1;
 }
-}
-
-/*==================================================
-　機能編 5-3-2　中心から外に線が伸びる（中央）
-===================================*/
-#menu li a{
-    /*線の基点とするためrelativeを指定*/
-	position: relative;
-}
-
-#menu li a::after {
-    content: '';
-    /*絶対配置で線の位置を決める*/
-    position: absolute;
-    bottom: 34px;
-    left: 10%;
-    /*線の形状*/
-    width: 80%;
-    height: 1px;
-    background: #fff;
-    /*アニメーションの指定*/
-    transition: all .3s;
-    transform: scale(0, 1);/*X方向0、Y方向1*/
-    transform-origin: center top;/*上部中央基点*/
-}
-
-/*現在地とhoverの設定*/
-#menu li a:hover::after {
-    transform: scale(1, 1);/*X方向にスケール拡大*/
 }
 
 /*===========================================================*/
@@ -234,6 +221,26 @@ body.appear #container{
 	transform:scale(1, 1);
 }
 
+/*== 非活性 */
+.disabledbtn{
+    /*ボタンの形状*/
+	text-decoration: none;
+	display: inline-block;
+   	border: 1px solid #555;/* ボーダーの色と太さ */
+    padding: 10px 30px;
+    text-align: center;
+    outline: none;
+    /*アニメーションの指定*/   
+    transition: ease .2s;
+}
+
+/*ボタン内spanの形状*/
+.disabledbtn span {
+	position: relative;
+	z-index: 3;/*z-indexの数値をあげて文字を背景よりも手前に表示*/
+	color:#555;
+}
+
 /*===========================================================*/
 /*印象編　8-10 テキストがタイピング風に出現*/
 /*===========================================================*/
@@ -303,134 +310,181 @@ body.appear #container{
 	padding:20px;
 }
 
+/*画像設定*/
+/*＝＝＝＝＝＝＝＝＝＝＝550-1300pxの見え方＝＝＝＝＝＝＝＝＝＝＝＝＝*/
+#left-sign-img {
+	display: none;
+}
+
+#preparation {
+	display: none;
+}
+
 /*左エリア画像設定*/
 #left1{
-	background:url("../img/main-left.jpg") no-repeat center right;
 	background-size:cover;
 }
 
-#right1{
-	background:url("../img/main-right.jpg") no-repeat center left;
+#left2{
 	background-size:cover;
 }
 
-#right2{
-	background:url("../img/01.jpg") no-repeat center;
-	background-size:cover;
-}
-
-#right3{
-	background:url("../img/02.jpg") no-repeat center;
-	background-size:cover;
-}
-
-#right4{
-	background:url("../img/03.jpg") no-repeat center;
+#left3{
 	background-size:cover;
 }
 
 #left4{
-	background:url("../img/04.jpg") no-repeat center;
-	background-size:cover;
-}
-
-#right5{
-	background:url("../img/05.jpg") no-repeat center;
 	background-size:cover;
 }
 
 #left5{
-	background:url("../img/06.jpg") no-repeat center;
+	background-size:cover;
+}
+
+#left6{
+	background-size:cover;
+}
+
+/*右エリア画像設定*/
+#right1{
+	background:linear-gradient(-225deg, #4158D0, #C850C0 30%, #FFCC70);
+	background-size:cover;
+}
+
+#right2{
+	background-size:cover;
+}
+
+#right3{
+	background:url("../img/iphonescreen.png") no-repeat center;
+	background-size:cover;
+}
+
+#right4{
+	background:url("../img/illust.png") no-repeat center;
+	background-size:cover;
+}
+
+#right5{
+	background:linear-gradient(-225deg, #4158D0, #b1a2b0 30%, #969186);
 	background-size:cover;
 }
 
 #right6{
-	background:url("../img/07.jpg") no-repeat center;
 	background-size:cover;
 }
+
 
 /*＝＝＝＝＝＝＝＝＝＝＝550px以下の見え方＝＝＝＝＝＝＝＝＝＝＝＝＝*/
 
 @media screen and (max-width:550px){
-	
-#header{
-	justify-content: center;
-}
+		
+	#header{
+		justify-content: center;
+	}
+	#left-sign-img {
+		position: relative;
+		display: flex;
+		-webkit-justify-content: center;
+		justify-content: center;
+		-webkit-align-items: center;
+		align-items: center;
+		height: 50vh;
+	}
+	#preparation {
+		position: relative;
+		display: flex;
+		-webkit-justify-content: center;
+		justify-content: center;
+		-webkit-align-items: center;
+		align-items: center;
+		height: 50vh;
+		opacity: 0.4;
+	}
+	#left-sign-img img{
+		padding: 50px;
+		max-height: 50vh;
+	}
+	/*全体のボックスについている余白をリセット*/
+	.ms-section{
+		padding:0;
+	}
 
-/*全体のボックスについている余白をリセット*/
-.ms-section{
-	padding:0;
-}
+	/*天地中央になっている見せ方を上ぞろえに上書き*/
+	.ms-tableCell{
+		vertical-align:top;
+	}
 
-/*天地中央になっている見せ方を上ぞろえに上書き*/
-.ms-tableCell{
-	vertical-align:top;
-}
+	/*右上ナビゲーションと右エリア非表示*/
+	#menu,
+	.ms-right{
+		display: none;
+	}
 
-/*左上ナビゲーションと左エリア非表示*/
-#menu,
-.ms-right{
-	display: none;
-}
+	/*左エリアを横幅100%にして画像＋テキストを出す設定*/
+	.ms-left{
+		width:100%!important;
+	}
 
-/*右エリアを横幅100%にして画像＋テキストを出す設定*/
-.ms-left{
-	width:100%!important;
-}
+	/*左エリア最初と最後の画像設定*/
+	#left1{
+		background-size:cover;
+	}
 
-/*右エリア上部画像設定*/
-    
-#left1{
-    background:url("../img/main-right.jpg") center;
-    background-size:cover;
-}
+	#left6{
+		background-size:cover;
+	}
 
-#left2 .sp-top{
-	background:url("../img/01.jpg") no-repeat center;
-	background-size:cover;
-    height: 50vh;
-}
+	/*左エリア上部画像設定*/
+	#left2 .sp-top{
+		background:linear-gradient(-225deg, #4158D0, #C850C0 30%, #FFCC70);
+		background-size:cover;
+		height: 50vh;
+	}
 
-#left3 .sp-top{
-	background:url("../img/02.jpg") no-repeat top center;
-	background-size:cover;
-    height: 50vh;
-}
-    
-#left4 .sp-top{
-	background:url("../img/03.jpg") no-repeat top center;
-	background-size:cover;
-    height: 50vh;
-}
-    
-#left4 .sp-bottom{
-	background:url("../img/04.jpg") no-repeat top center;
-	background-size:cover;
-    height: 50vh;
-}
+	#left3 .sp-top{
+		background:url("../img/iphonescreen.png") no-repeat top center;
+		background-size:cover;
+		height: 50vh;
+	}
 
-#left5 .sp-top{
-	background:url("../img/05.jpg") no-repeat top center;
-	background-size:cover;
-    height: 50vh;
-}
-    
-#left5 .sp-bottom{
-	background:url("../img/07.jpg") no-repeat center;
-	background-size:cover;
-    height: 50vh;
-}
+	#left4 .sp-top{
+		background:url("../img/illust.png") no-repeat top center;
+		background-size:cover;
+		height: 50vh;
+	}
 
-#left6{
-	background:url("../img/06.jpg") no-repeat center;
-	background-size:cover;
-}
+	#left5 .sp-top{
+		background:linear-gradient(-225deg, #4158D0, #b1a2b0 30%, #969186);
+		background-size:cover;
+		height: 50vh;
+	}
 
-/*右エリア下部テキスト余白設定*/
-.sp-bottom{
-	padding:20px;
-}
-	
+	/*左エリア下部画像設定*/
+	#left2 .sp-bottom{
+		background-size:cover;
+		height: 50vh;
+	}
+
+	#left3 .sp-bottom{
+		background-size:cover;
+		height: 50vh;
+	}
+		
+	#left4 .sp-bottom{
+		background-size:cover;
+		height: 50vh;
+	}
+		
+	#left5 .sp-bottom{
+		background-size:cover;
+		height: 50vh;
+	}
+
+	/*右エリア下部テキスト余白設定*/
+	.sp-bottom{
+		padding:20px;
+	}
 }
 
 /*===========================================================*/
@@ -497,6 +551,46 @@ body.appear #container{
   }
 }
 
+/*==================================================
+　機能編 5-3-2　中心から外に線が伸びる（中央）
+===================================*/
+#menu li a{
+    /*線の基点とするためrelativeを指定*/
+	position: relative;
+}
+
+#menu li a::after {
+    content: '';
+    /*絶対配置で線の位置を決める*/
+    position: absolute;
+    bottom: 34px;
+    left: 10%;
+    /*線の形状*/
+    width: 80%;
+    height: 1px;
+    background: #fff;
+    /*アニメーションの指定*/
+    transition: all .3s;
+    transform: scale(0, 1);/*X方向0、Y方向1*/
+    transform-origin: center top;/*上部中央基点*/
+}
+
+/*現在地とhoverの設定*/
+#menu li a:hover::after {
+    transform: scale(1, 1);/*X方向にスケール拡大*/
+}
+
+@media screen and (max-width:550px) {
+    #g-nav ul{
+        display: block;
+        padding: 0;
+    }
+    
+    #g-nav ul li a{
+        padding:6px 15px;
+    }
+}
+
 /*===========================================================*/
 /*機能編  5-1-21 クリックしたら円形背景が拡大（右下から）*/
 /*===========================================================*/
@@ -521,7 +615,8 @@ body.appear #container{
 		width: 100px;
 		height: 100px;
 		border-radius: 50%;
-		background: #504237;
+		background: #000;
+		opacity: 0.9;
 		/*丸のスタート位置と形状*/
 		transform: scale(0);/*scaleをはじめは0に*/
 		right:-50px;
@@ -535,6 +630,7 @@ body.appear #container{
 	
 	/*ナビゲーション*/
 	#g-nav ul {
+		display: block;
 		opacity: 0;/*はじめは透過0*/
 		/*ナビゲーション天地中央揃え※レイアウトによって調整してください。不必要なら削除*/
 		position: absolute;
@@ -667,4 +763,11 @@ body.appear #container{
 		left: 22px;
 	}
     
+}
+
+.gradation {
+    background: linear-gradient(90deg, #4158D0, #C850C0 30%, #FFCC70);
+    background: -webkit-linear-gradient(0deg, #4158D0, #C850C0 30%, #FFCC70);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
 }
