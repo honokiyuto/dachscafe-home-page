@@ -28,6 +28,23 @@ function TextTypingAnime() {
 	});
 }
 
+// 文字を<span>タグで区切る
+function DivideSpan() {
+	var element = $(".TextTyping");
+	element.each(function () {
+		var text = $(this).html();
+		var textbox = "";
+		text.split('').forEach(function (t) {
+			if (t !== " ") {
+				textbox += '<span>' + t + '</span>';
+			} else {
+				textbox += t;
+			}
+		});
+		$(this).html(textbox);
+	});
+}
+
 
 /*==================================================
 /*印象編 6-3 スクロールすると画面分割した左右がそれぞれ動く*/
@@ -43,12 +60,8 @@ $('#wrapper').multiscroll({
 	loopBottom: true,//最後のセクションを下にスクロールして最初のセクションまでスクロールするかどうかを定義します。
     //※以下は今回のプラグインの組み合わせのみで使用。ページの途中でリロードしてもトップのタイピング出現
     afterLoad: function(anchorLink, index){
-		if(index == 1){
-			TextTypingAnime();
-		}	
+		TextTypingAnime();
 	}
-
-    
 });
 
 /*==================================================
@@ -74,19 +87,7 @@ $(window).on('load',function(){
 		$('body').addClass('appear');//フェードアウト後bodyにappearクラス付与 
 		
 		//印象編 8-10テキストがタイピング風に出現
-		var element = $(".TextTyping");
-		element.each(function () {
-			var text = $(this).html();
-			var textbox = "";
-			text.split('').forEach(function (t) {
-				if (t !== " ") {
-					textbox += '<span>' + t + '</span>';
-				} else {
-					textbox += t;
-				}
-			});
-			$(this).html(textbox);
-		});
+		DivideSpan()
 		TextTypingAnime();/* アニメーション用の関数を呼ぶ*/
 
 	}); //=====ここまでローディングエリア（splashエリア）を0.8秒でフェードアウトした後に動かしたいJSをまとめる
