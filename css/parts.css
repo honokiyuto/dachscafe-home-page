@@ -327,11 +327,7 @@ body.appear #header{
 
 /*画像設定*/
 /*＝＝＝＝＝＝＝＝＝＝＝550-1300pxの見え方＝＝＝＝＝＝＝＝＝＝＝＝＝*/
-#left-sign-img {
-	display: none;
-}
-
-#preparation {
+.left-resp {
 	display: none;
 }
 
@@ -397,7 +393,7 @@ body.appear #header{
 	#header{
 		justify-content: center;
 	}
-	#left-sign-img {
+	.left-resp {
 		position: relative;
 		display: flex;
 		-webkit-justify-content: center;
@@ -407,16 +403,9 @@ body.appear #header{
 		height: 50vh;
 	}
 	#preparation {
-		position: relative;
-		display: flex;
-		-webkit-justify-content: center;
-		justify-content: center;
-		-webkit-align-items: center;
-		align-items: center;
-		height: 50vh;
 		opacity: 0.4;
 	}
-	#left-sign-img img{
+	.left-resp img{
 		padding: 50px;
 		max-height: 50vh;
 	}
@@ -785,4 +774,174 @@ body.appear #header{
     background: -webkit-linear-gradient(0deg, #4158D0, #C850C0 30%, #FFCC70);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
+}
+
+
+/*==================================================
+印象編 4 最低限おぼえておきたい動き
+===================================*/
+
+/*印象編　4-9、4-10　背景色が伸びて出現（左から・右から）　*/
+.bgextend{
+	animation-name:bgextendAnimeBase;
+	animation-duration:1s;
+	animation-fill-mode:forwards;
+	position: relative;
+	overflow: hidden;/*　はみ出た色要素を隠す　*/
+	opacity:0;
+}
+
+@keyframes bgextendAnimeBase{
+  from {
+    opacity:0;
+  }
+
+  to {
+    opacity:1;  
+}
+}
+
+/*中の要素*/
+.bgappear{
+	animation-name:bgextendAnimeSecond;
+	animation-duration:1s;
+	animation-delay: 0.6s;
+	animation-fill-mode:forwards;
+	opacity: 0;
+}
+
+@keyframes bgextendAnimeSecond{
+	0% {
+	opacity: 0;
+	}
+	100% {
+	opacity: 1;
+}
+}
+
+/*印象編　4-9 背景色が伸びて出現（左から）*/
+.bgLRextend::before{
+	animation-name:bgLRextendAnime;
+	animation-duration:1s;
+	animation-fill-mode:forwards;
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: #111;/*伸びる背景色の設定*/
+}
+
+@keyframes bgLRextendAnime{
+	0% {
+		transform-origin:left;
+		transform:scaleX(0);
+	}
+	50% {
+		transform-origin:left;
+		transform:scaleX(1);
+	}
+	50.001% {
+		transform-origin:right;
+	}
+	100% {
+		transform-origin:right;
+		transform:scaleX(0);
+	}
+}
+
+/*印象編　4-9 背景色が伸びて出現（右から）*/
+.bgRLextend::before{
+	animation-name:bgRLextendAnime;
+	animation-duration:1s;
+	animation-fill-mode:forwards;
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: #111;/*伸びる背景色の設定*/
+}
+
+@keyframes bgRLextendAnime{
+	0% {
+		transform-origin:right;
+		transform:scaleX(0);
+	}
+	50% {
+		transform-origin:right;
+		transform:scaleX(1);
+	}
+	50.001% {
+		transform-origin:left;
+	}
+	100% {
+		transform-origin:left;
+		transform:scaleX(0);
+	}
+}
+
+/* スクロールをしたら出現する要素にはじめに透過0を指定　*/
+.bgappearTrigger,
+.bgRLextendTrigger,
+.bgLRextendTrigger{
+    opacity: 0;
+}
+
+
+/*==================================================
+ 7 画像リンクの動き
+===================================*/
+
+/*　印象編　7-3 画像が拡大＋回転　*/
+
+.zoomInRotate{
+/*opacityとtransformがかけあわさると生じる表示バグの回避*/
+    backface-visibility: hidden;
+}
+.zoomInRotate img{
+	transform: scale(1);
+	transition: .3s ease-in-out;/*移り変わる速さを変更したい場合はこの数値を変更*/
+}
+
+.zoomInRotate a:hover img{/*hoverした時の変化*/
+	transform:rotate(5deg) scale(1.2);/*拡大、回転の値を変更したい場合はこの数値を変更*/
+}
+
+/*==================================================
+galleryページの設定
+===================================*/
+
+#gallery-bg {
+	width: 100%;
+	height: 100%;
+	background:#222222;
+	text-align:center;
+	color:#fff;
+}
+
+.gallery-container {
+	padding: 10px;
+}
+
+/*==================================================
+機能編 6-2-1 複数の画像を一覧で見せる
+===================================*/
+.gallery{
+	columns: 4;/*段組みの数*/
+	padding:0 15px;/*ギャラリー左右に余白をつける*/
+}
+
+.gallery li {
+	margin-bottom: 20px;/*各画像下に余白をつける*/
+}
+
+/*ギャラリー内のイメージは横幅100%にする*/
+.gallery img{
+	width:100%;
+	height:auto;
+	vertical-align: bottom;/*画像の下にできる余白を削除*/}
+
+@media only screen and (max-width: 600px) {
+	.gallery{
+		columns: 2;
+	}	
 }
