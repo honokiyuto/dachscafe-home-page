@@ -797,7 +797,7 @@ body.appear #header{
 
 @media only screen and (max-width: 600px) {
 	.gallery{
-	columns: 2;
+		columns: 2;
 	}	
 }
 
