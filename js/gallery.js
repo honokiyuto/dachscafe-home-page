@@ -53,3 +53,19 @@ function CreateImgLi() {
 $(document).ready(function(){
 	CreateImgLi()
 });
+
+// ページが読み込まれたらすぐに動かしたい場合の記述
+$(window).on('load',function(){
+    
+    //機能編 4-1-5 ロゴアウトラインアニメーション
+    $("#splash_logo").delay(1200).fadeOut('slow');//ロゴを1.2秒でフェードアウトする記述 
+    
+    //=====ここからローディングエリア（splashエリア）を1.5秒でフェードアウトした後に動かしたいJSをまとめる
+
+    $("#splash").delay(1500).fadeOut('slow',function(){//ローディングエリア（splashエリア）を1.5秒でフェードアウトする記述
+    
+		$('body').addClass('appear');//フェードアウト後bodyにappearクラス付与 
+
+	}); //=====ここまでローディングエリア（splashエリア）を0.8秒でフェードアウトした後に動かしたいJSをまとめる
+    
+});// ここまでページが読み込まれたらすぐに動かしたい場合の記述
