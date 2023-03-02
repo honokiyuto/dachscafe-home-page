@@ -28,23 +28,67 @@ function CreateImgLi() {
 	urlList = urlList.map(element => element.replace('www.dropbox.com', 'dl.dropboxusercontent.com'));
 	urlList = urlList.map(element => element.replace('?dl=0', ''));
 	// 変数定義
-	var galleryRightText = '';
-	var galleryLeftText = '';
-	var halfCount = Math.floor(urlList.length / 2);
-	var counter = 0;
+	var galleryText = '';
 	for (let i = 0; i < urlList.length; ++i) {
-		counter += 1;
 		var url = urlList[i];
 		var htmlLi = '<li class="bgextend bgLRextendTrigger zoomInRotate"><div class="bgappearTrigger"><a href="' + url + '" data-lightbox="gallery-group"><img src="' + url + '" alt=""></a></div></li>';
-		if (counter <= halfCount) {
-			galleryRightText += htmlLi;
-		} else {
-			galleryLeftText += htmlLi;
-		}
-		$(".gallery.right").html(galleryRightText);
-		$(".gallery.left").html(galleryLeftText);
+		galleryText += htmlLi;
 	}
+	$("#gallery").html(galleryText);
 } 
+
+/*===========================================================*/
+/* 印象編 4 最低限おぼえておきたい動き */
+/*===========================================================*/
+
+// 動きのきっかけの起点となるアニメーションの名前を定義
+function fadeAnime(){
+
+    // 印象編 4-9、4-10 背景色が伸びて出現（左から・右から）中の要素が出現
+    $('.bgappearTrigger').each(function(){ //bgappearTriggerというクラス名が
+		var elemPos = $(this).offset().top-50;//要素より、50px上の
+		var scroll = $(window).scrollTop();
+		var windowHeight = $(window).height();
+		if (scroll >= elemPos - windowHeight){
+			$(this).addClass('bgappear');// 画面内に入ったらbgappearというクラス名を追記
+		}else{
+			$(this).removeClass('bgappear');// 画面外に出たらbgappearというクラス名を外す
+		}
+	});	
+    //印象編 4-9 背景色が伸びて出現（左から）
+	$('.bgLRextendTrigger').each(function(){ //bgLRextendTriggerというクラス名が
+		var elemPos = $(this).offset().top-50;//要素より、50px上の
+		var scroll = $(window).scrollTop();
+		var windowHeight = $(window).height();
+		if (scroll >= elemPos - windowHeight){
+			$(this).addClass('bgLRextend');// 画面内に入ったらbgLRextendというクラス名を追記
+		}else{
+			$(this).removeClass('bgLRextend');// 画面外に出たらbgLRextendというクラス名を外す
+		}
+	});	
+    //印象編 4-9 背景色が伸びて出現（右から）
+    $('.bgRLextendTrigger').each(function(){ //bgRLextendTriggerというクラス名が
+		var elemPos = $(this).offset().top-50;//要素より、50px上の
+		var scroll = $(window).scrollTop();
+		var windowHeight = $(window).height();
+		if (scroll >= elemPos - windowHeight){
+			$(this).addClass('bgRLextend');// 画面内に入ったらbgRLextendというクラス名を追記
+		}else{
+			$(this).removeClass('bgRLextend');// 画面外に出たらbgRLextendというクラス名を外す
+		}
+	});
+    //service-areaスタート
+    $('.service-area').each(function(){ //service-areaというクラス名が
+		var elemPos = $(this).offset().top-50;//要素より、50px上の
+		var scroll = $(window).scrollTop();
+		var windowHeight = $(window).height();
+		if (scroll >= elemPos - windowHeight){
+			$(this).addClass('startwd');// 画面内に入ったらstartwdというクラス名を追記
+		}else{
+			$(this).removeClass('startwd');// 画面外に出たらstartwdというクラス名を外す
+		}
+	});  
+}
 
 /*==================================================
 /*関数をまとめる*/
@@ -52,6 +96,11 @@ function CreateImgLi() {
 // DOMツリー直後の動き
 $(document).ready(function(){
 	CreateImgLi()
+});
+
+// 画面をスクロールをしたら動かしたい場合の記述
+$(window).scroll(function () {
+    fadeAnime();// 印象編 4 最低限おぼえておきたい動きの関数を呼ぶ
 });
 
 // ページが読み込まれたらすぐに動かしたい場合の記述
@@ -67,5 +116,11 @@ $(window).on('load',function(){
 		$('body').addClass('appear');//フェードアウト後bodyにappearクラス付与 
 
 	}); //=====ここまでローディングエリア（splashエリア）を0.8秒でフェードアウトした後に動かしたいJSをまとめる
+
+	//=====ここから背景が伸びた後に動かしたいJSをまとめる
+    $('.splashbg').on('animationend', function() {
+		/* 印象編 4 最低限おぼえておきたい動きの関数を呼ぶ*/
+		fadeAnime();        
+	});
     
 });// ここまでページが読み込まれたらすぐに動かしたい場合の記述

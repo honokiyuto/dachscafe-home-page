@@ -45,60 +45,6 @@ function DivideSpan() {
 }
 
 
-/*===========================================================*/
-/* 印象編 4 最低限おぼえておきたい動き */
-/*===========================================================*/
-
-// 動きのきっかけの起点となるアニメーションの名前を定義
-function fadeAnime(){
-
-    // 印象編 4-9、4-10 背景色が伸びて出現（左から・右から）中の要素が出現
-    $('.bgappearTrigger').each(function(){ //bgappearTriggerというクラス名が
-		var elemPos = $(this).offset().top-50;//要素より、50px上の
-		var scroll = $(window).scrollTop();
-		var windowHeight = $(window).height();
-		if (scroll >= elemPos - windowHeight){
-			$(this).addClass('bgappear');// 画面内に入ったらbgappearというクラス名を追記
-		}else{
-			$(this).removeClass('bgappear');// 画面外に出たらbgappearというクラス名を外す
-		}
-	});	
-    //印象編 4-9 背景色が伸びて出現（左から）
-	$('.bgLRextendTrigger').each(function(){ //bgLRextendTriggerというクラス名が
-		var elemPos = $(this).offset().top-50;//要素より、50px上の
-		var scroll = $(window).scrollTop();
-		var windowHeight = $(window).height();
-		if (scroll >= elemPos - windowHeight){
-			$(this).addClass('bgLRextend');// 画面内に入ったらbgLRextendというクラス名を追記
-		}else{
-			$(this).removeClass('bgLRextend');// 画面外に出たらbgLRextendというクラス名を外す
-		}
-	});	
-    //印象編 4-9 背景色が伸びて出現（右から）
-    $('.bgRLextendTrigger').each(function(){ //bgRLextendTriggerというクラス名が
-		var elemPos = $(this).offset().top-50;//要素より、50px上の
-		var scroll = $(window).scrollTop();
-		var windowHeight = $(window).height();
-		if (scroll >= elemPos - windowHeight){
-			$(this).addClass('bgRLextend');// 画面内に入ったらbgRLextendというクラス名を追記
-		}else{
-			$(this).removeClass('bgRLextend');// 画面外に出たらbgRLextendというクラス名を外す
-		}
-	});
-    //service-areaスタート
-      $('.service-area').each(function(){ //service-areaというクラス名が
-		var elemPos = $(this).offset().top-50;//要素より、50px上の
-		var scroll = $(window).scrollTop();
-		var windowHeight = $(window).height();
-		if (scroll >= elemPos - windowHeight){
-			$(this).addClass('startwd');// 画面内に入ったらstartwdというクラス名を追記
-		}else{
-			$(this).removeClass('startwd');// 画面外に出たらstartwdというクラス名を外す
-		}
-	});  
-}
-
-
 /*==================================================
 /*印象編 6-3 スクロールすると画面分割した左右がそれぞれ動く*/
 /*===================================*/
@@ -124,7 +70,6 @@ $('#wrapper').multiscroll({
 // 画面をスクロールをしたら動かしたい場合の記述
 $(window).scroll(function () {
 	TextTypingAnime();//印象編 8-10テキストがタイピング風に出現する関数を呼ぶ*/
-	fadeAnime();
 });// ここまで画面をスクロールをしたら動かしたい場合の記述
 
 
@@ -145,12 +90,6 @@ $(window).on('load',function(){
 		TextTypingAnime();/* アニメーション用の関数を呼ぶ*/
 
 	}); //=====ここまでローディングエリア（splashエリア）を0.8秒でフェードアウトした後に動かしたいJSをまとめる
-
-	//=====ここから背景が伸びた後に動かしたいJSをまとめる
-    $('.splashbg').on('animationend', function() {
-		/* 印象編 4 最低限おぼえておきたい動きの関数を呼ぶ*/
-		fadeAnime();        
-	});
     
 });// ここまでページが読み込まれたらすぐに動かしたい場合の記述
 

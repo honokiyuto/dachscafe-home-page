@@ -21,7 +21,7 @@
 <link rel="stylesheet" type="text/css" href="css/layout.css">
 </head>
 
-<body>
+<body id="gallery-bg">
 <div id="splash">
 <div id="splash_logo">
 <span class="slide-in slideAnimeLeftRight">
@@ -30,12 +30,15 @@
 <!--/splash-logo--></div>
 <!--/splash--></div>
 <div class="splashbg"></div><!---画面遷移用-->
-<header id="header">
-	<h1>My works gallery</h1>
-</header>
 <div id="container">
 <div id="wrapper">
-	<h1>works</h1>
+	<div class="gallery-container">
+		<span class="slide-in_inner slideAnimeRightLeft"><h2 class="gradation">My Works</h2></span>
+	</div>
+	<div class="gallery-container">
+		<ul id="gallery" class="gallery"></ul>
+	</div>
+	
 <!--/wrapper--></div>
 <footer id="footer">
 <small>&copy; dachscafe2023</small>
