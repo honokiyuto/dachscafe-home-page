@@ -31,7 +31,7 @@ function CreateImgLi() {
 	var galleryText = '';
 	for (let i = 0; i < urlList.length; ++i) {
 		var url = urlList[i];
-		var htmlLi = '<li class="bgextend bgLRextendTrigger zoomInRotate"><div class="bgappearTrigger"><a href="' + url + '" data-lightbox="gallery-group"><img src="' + url + '" decoding="lazy" alt="picture"></a></div></li>';
+		var htmlLi = '<li class="bgextend bgLRextendTrigger zoomInRotate"><div class="bgappearTrigger"><a href="' + url + '" data-lightbox="gallery-group"><img src="' + url + '" loading="lazy" alt="picture"></a></div></li>';
 		galleryText += htmlLi;
 	}
 	$("#gallery").html(galleryText);
